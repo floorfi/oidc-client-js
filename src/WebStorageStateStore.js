@@ -12,22 +12,47 @@ export class WebStorageStateStore {
 
     set(key, value) {
         Log.debug("WebStorageStateStore.set", key);
+        console.log('Set Storage: ');
+        console.log('Key: ' + key);
+        console.log(value);
 
         key = this._prefix + key;
 
-        this._store.setItem(key, value);
-
-        return Promise.resolve();
+        if(this._store == Global.localStorage) {
+            console.log('LocalStorage');
+            return this._store.set({
+                key: key,
+                value: value
+            });
+        } else {
+            console.log('SessionStorage');
+            this._store.setItem(key, value);
+            return Promise.resolve();
+        }
     }
 
     get(key) {
         Log.debug("WebStorageStateStore.get", key);
+        console.log(this._store);
+        console.log('Get Storage: ');
+        console.log('Key: ' + key);
 
         key = this._prefix + key;
 
-        let item = this._store.getItem(key);
-
-        return Promise.resolve(item);
+        if(this._store == Global.localStorage) {
+            console.log('LocalStorage');
+            return new Promise((resolve) => {
+                this._store.get({ key: key })
+                    .then(storeEntry => {
+                        console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
+                        resolve(storeEntry.value)
+                    })
+            })
+        } else {
+            console.log('SessionStorage');
+            let item = this._store.getItem(key);
+            return Promise.resolve(item);
+        }
     }
 
     remove(key) {
@@ -35,10 +60,15 @@ export class WebStorageStateStore {
 
         key = this._prefix + key;
 
-        let item = this._store.getItem(key);
-        this._store.removeItem(key);
-
-        return Promise.resolve(item);
+        if(this._store == Global.localStorage) {
+            console.log('LocalStorage');
+            return this._store.remove(key);
+        } else {
+            console.log('SessionStorage');
+            let item = this._store.getItem(key);
+            this._store.removeItem(key);
+            return Promise.resolve(item);
+        }
     }
 
     getAllKeys() {
@@ -46,14 +76,31 @@ export class WebStorageStateStore {
 
         var keys = [];
 
-        for (let index = 0; index < this._store.length; index++) {
-            let key = this._store.key(index);
+        if(this._store == Global.localStorage) {
+            console.log('LocalStorage');
+            return new Promise((resolve) => {
+                this._store.keys()
+                    .then(keys => {
+                        keys.forEach(key => {
+                            if (key.indexOf(this._prefix) === 0) {
+                                keys.push(key.substr(this._prefix.length));
+                            }
+                        });
 
-            if (key.indexOf(this._prefix) === 0) {
-                keys.push(key.substr(this._prefix.length));
+                        resolve(keys);
+                    })
+            });
+        } else {
+            console.log('SessionStorage');
+            for (let index = 0; index < this._store.length; index++) {
+                let key = this._store.key(index);
+
+                if (key.indexOf(this._prefix) === 0) {
+                    keys.push(key.substr(this._prefix.length));
+                }
             }
-        }
 
-        return Promise.resolve(keys);
+            return Promise.resolve(keys);
+        }
     }
 }

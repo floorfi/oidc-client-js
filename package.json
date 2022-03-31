@@ -29,6 +29,9 @@
     "url": "https://github.com/IdentityModel/oidc-client-js/issues"
   },
   "homepage": "https://github.com/IdentityModel/oidc-client-js",
+  "peerDependencies": {
+    "@capacitor/storage": "^1.2.5"
+  },
   "dependencies": {
     "acorn": "^7.4.1",
     "base64-js": "^1.5.1",

@@ -1,5 +1,6 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+import { Storage } from "@capacitor/storage";
 
 const timer = {
     setInterval: function (cb, duration) {
@@ -27,7 +28,7 @@ export class Global {
 
     static get localStorage() {
         if (!testing && typeof window !== 'undefined') {
-            return localStorage;
+            return Storage;
         }
     }
 

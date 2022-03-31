@@ -21,7 +21,10 @@ function createWebpackConfig(options) {
     },
     // this is for the sourcemaps
     devtool: options.devtool,
-    optimization: options.optimization
+    optimization: options.optimization,
+    externals: {
+      '@capacitor/storage': '/node_modules(?![\\\/]@capacitor/storage'
+    }
   };
 }
 
