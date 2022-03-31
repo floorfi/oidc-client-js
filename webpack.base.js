@@ -23,7 +23,7 @@ function createWebpackConfig(options) {
     devtool: options.devtool,
     optimization: options.optimization,
     externals: {
-      '@capacitor/storage': '/node_modules(?![\\\/]@capacitor/storage'
+      '@capacitor/storage': '@capacitor/storage'
     }
   };
 }
