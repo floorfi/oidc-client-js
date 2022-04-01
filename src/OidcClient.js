@@ -98,6 +98,8 @@ export class OidcClient {
     }
 
     readSigninResponseState(url, stateStore, removeState = false) {
+        console.log('oidc-client-js readSigninResponseState');
+
         Log.debug("OidcClient.readSigninResponseState");
 
         let useQuery = this._settings.response_mode === "query" || 
@@ -127,6 +129,8 @@ export class OidcClient {
     }
 
     processSigninResponse(url, stateStore) {
+        console.log('oidc-client-js processSigninResponse');
+
         Log.debug("OidcClient.processSigninResponse");
 
         return this.readSigninResponseState(url, stateStore, true).then(({state, response}) => {

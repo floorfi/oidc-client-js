@@ -404,6 +404,8 @@ export class UserManager extends OidcClient {
         });
     }
     _signinEnd(url, args = {}) {
+        console.log('oidc-client-js _signinEnd');
+
         return this.processSigninResponse(url).then(signinResponse => {
             Log.debug("UserManager._signinEnd: got signin response");
 

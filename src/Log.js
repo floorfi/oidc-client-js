@@ -25,7 +25,7 @@ export class Log {
     static get DEBUG() {return DEBUG};
     
     static reset(){
-        level = INFO;
+        level = DEBUG;
         logger = nopLogger;
     }
     
