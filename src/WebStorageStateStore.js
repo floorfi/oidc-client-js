@@ -14,7 +14,7 @@ export class WebStorageStateStore {
         console.log('Set Storage: ');
         console.log('Key: ' + key);
         console.log('Value: ' + value);
-        let keyold = key
+
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
@@ -23,9 +23,9 @@ export class WebStorageStateStore {
                     key: key,
                     value: value
                 }).then(() => {
-                    this._store.get(keyold).then(storeEntry => {
-                        console.log('Capacitor set Storage done')
-                        console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry);
+                    console.log('Capacitor set Storage done')
+                    this._store.get({ key: key }).then(storeEntry => {
+                        console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value);
                         resolve();
                     });
                 })
