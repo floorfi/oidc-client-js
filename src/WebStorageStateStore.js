@@ -76,7 +76,15 @@ export class WebStorageStateStore {
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage - remove');
-            return this._store.remove(key);
+            return new Promise((resolve) => {
+                this.get(key).then(value => {
+                    this._store.remove(key).then(()=> {
+                        console.log('gelöschter Wert: ' + value);
+
+                        resolve(value);
+                    })
+                });
+            });
         } else {
             console.log('SessionStorage');
             let item = this._store.getItem(key);
