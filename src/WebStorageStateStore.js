@@ -24,7 +24,7 @@ export class WebStorageStateStore {
                     value: value
                 }).then(() => {
                     console.log('Capacitor set Storage done')
-                    console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
+                    console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value);
                     resolve();
                 })
             })
