@@ -78,6 +78,8 @@ export class WebStorageStateStore {
             console.log('LocalStorage - remove');
             return new Promise((resolve) => {
                 this.get(key).then(value => {
+                    console.log('LocalStorage - remove - get value: ' + value);
+
                     this._store.remove(key).then(()=> {
                         console.log('gelöschter Wert: ' + value);
 
