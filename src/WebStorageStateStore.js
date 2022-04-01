@@ -41,7 +41,6 @@ export class WebStorageStateStore {
 
     get(key) {
         Log.debug("WebStorageStateStore.get", key);
-        console.log(this._store);
         console.log('Get Storage: ');
         console.log('Key: ' + key);
 
@@ -72,14 +71,14 @@ export class WebStorageStateStore {
         console.log('Remove from Storage: ');
         console.log('Key: ' + key);
 
-        key = this._prefix + key;
+
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage - remove');
             return new Promise((resolve) => {
                 this.get(key).then(value => {
                     console.log('LocalStorage - remove - get value: ' + value);
-
+                    key = this._prefix + key;
                     this._store.remove(key).then(()=> {
                         console.log('gelöschter Wert: ' + value);
 
