@@ -3,9 +3,6 @@
 
 import { Log } from './Log.js';
 import { Global } from './Global.js';
-import { Storage } from "@capacitor/storage";
-
-
 export class WebStorageStateStore {
     constructor({prefix = "oidc.", store = Global.localStorage} = {}) {
         this._store = store;
@@ -23,7 +20,7 @@ export class WebStorageStateStore {
         if(this._store == Global.localStorage) {
             console.log('LocalStorage - set');
             return new Promise((resolve) => {
-                Storage.set({
+                this._store.set({
                     key: key,
                     value: value
                 }).then(() => {
@@ -48,17 +45,15 @@ export class WebStorageStateStore {
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage - get');
-            let item = window.localStorage.getItem('CapacitorStorage.' + key);
-            console.log('Value in Storage: ' + item);
-            return Promise.resolve(item);
-            // return new Promise((resolve) => {
-            //     Storage.get({ key: key })
-            //         .then(storeEntry => {
-            //             console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
-            //             console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
-            //             resolve(storeEntry.value)
-            //         })
-            // })
+
+            return new Promise((resolve) => {
+                this._store.get({ key: key })
+                    .then(storeEntry => {
+                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
+                        console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
+                        resolve(storeEntry.value)
+                    })
+            })
         } else {
             console.log('SessionStorage');
             let item = this._store.getItem(key);
@@ -79,7 +74,7 @@ export class WebStorageStateStore {
                 this.get(key).then(value => {
                     console.log('LocalStorage - remove - get value: ' + value);
                     key = this._prefix + key;
-                    this._store.remove(key).then(()=> {
+                    this._store.remove({key: key}).then(()=> {
                         console.log('gelöschter Wert: ' + value);
 
                         resolve(value);
