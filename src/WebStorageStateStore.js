@@ -21,25 +21,17 @@ export class WebStorageStateStore {
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage');
+            console.log('LocalStorage - set');
             return new Promise((resolve) => {
                 Storage.set({
                     key: key,
                     value: value
                 }).then(() => {
-                    Storage.set({
-                        key: 'test',
-                        value: 'testwert'
-                    }).then(() => {
-                        console.log('Capacitor set Storage done')
-                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
-                        console.log('Test-Value in Storage: ' + window.localStorage.getItem('test'));
-                        resolve();
-                    })
+                    console.log('Capacitor set Storage done')
+                    console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
+                    resolve();
                 })
             })
-
-            return ;
         } else {
             console.log('SessionStorage');
             this._store.setItem(key, value);
@@ -56,7 +48,7 @@ export class WebStorageStateStore {
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage');
+            console.log('LocalStorage - get');
             let item = window.localStorage.getItem('CapacitorStorage.' + key);
             console.log('Value in Storage: ' + item);
             return Promise.resolve(item);
@@ -81,7 +73,7 @@ export class WebStorageStateStore {
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage');
+            console.log('LocalStorage - remove');
             return this._store.remove(key);
         } else {
             console.log('SessionStorage');
@@ -97,7 +89,7 @@ export class WebStorageStateStore {
         var keys = [];
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage');
+            console.log('LocalStorage - getall');
             return new Promise((resolve) => {
                 this._store.keys()
                     .then(keys => {
