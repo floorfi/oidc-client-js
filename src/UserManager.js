@@ -99,11 +99,16 @@ export class UserManager extends OidcClient {
         });
     }
     signinRedirectCallback(url) {
+        console.log('oidc-client-js signinRedirectCallback');
         return this._signinEnd(url || this._redirectNavigator.url).then(user => {
             if (user.profile && user.profile.sub) {
+                console.log('oidc-client-js signinRedirectCallback true');
+
                 Log.info("UserManager.signinRedirectCallback: successful, signed in sub: ", user.profile.sub);
             }
             else {
+                console.log('oidc-client-js signinRedirectCallback false');
+
                 Log.info("UserManager.signinRedirectCallback: no sub");
             }
 
