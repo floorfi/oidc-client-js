@@ -32,8 +32,8 @@ export class WebStorageStateStore {
                         value: 'testwert'
                     }).then(() => {
                         console.log('Capacitor set Storage done')
-                        console.log('Value in Storage: ' + window.localStorage.getItem(key));
-                        console.log('Test-Value in Storage: ' + window.localStorage.getItem(test));
+                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
+                        console.log('Test-Value in Storage: ' + window.localStorage.getItem('test'));
                         resolve();
                     })
                 })
@@ -60,7 +60,7 @@ export class WebStorageStateStore {
             return new Promise((resolve) => {
                 Storage.get({ key: key })
                     .then(storeEntry => {
-                        console.log('Value in Storage: ' + window.localStorage.getItem(key));
+                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
                         console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
                         resolve(storeEntry.value)
                     })
