@@ -23,7 +23,8 @@ function createWebpackConfig(options) {
     devtool: options.devtool,
     optimization: options.optimization,
     externals: {
-      '@capacitor/storage': '@capacitor/storage'
+      '@capacitor/storage': '@capacitor/storage',
+      '@capacitor/browser': '@capacitor/browser'
     }
   };
 }
