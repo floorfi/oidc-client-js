@@ -57,14 +57,16 @@ export class WebStorageStateStore {
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage');
-            return new Promise((resolve) => {
-                Storage.get({ key: key })
-                    .then(storeEntry => {
-                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
-                        console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
-                        resolve(storeEntry.value)
-                    })
-            })
+            let item = this._store.getItem('CapacitorStorage.' + key);
+            return Promise.resolve(item);
+            // return new Promise((resolve) => {
+            //     Storage.get({ key: key })
+            //         .then(storeEntry => {
+            //             console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
+            //             console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
+            //             resolve(storeEntry.value)
+            //         })
+            // })
         } else {
             console.log('SessionStorage');
             let item = this._store.getItem(key);
