@@ -57,7 +57,7 @@ export class WebStorageStateStore {
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage');
-            let item = this._store.getItem('CapacitorStorage.' + key);
+            let item = window.localStorage.getItem('CapacitorStorage.' + key);
             return Promise.resolve(item);
             // return new Promise((resolve) => {
             //     Storage.get({ key: key })
