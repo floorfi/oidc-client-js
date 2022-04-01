@@ -1,6 +1,6 @@
 {
   "name": "oidc-client",
-  "version": "1.11.28",
+  "version": "1.11.29",
   "description": "OpenID Connect (OIDC) & OAuth2 client library",
   "main": "lib/oidc-client.min.js",
   "scripts": {

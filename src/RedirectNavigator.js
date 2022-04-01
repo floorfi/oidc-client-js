@@ -11,13 +11,18 @@ export class RedirectNavigator {
     }
 
     navigate(params) {
+        console.log('Navigator navigate');
         if (!params || !params.url) {
             Log.error("RedirectNavigator.navigate: No url provided");
             return Promise.reject(new Error("No url provided"));
         }
 
         return new Promise((resolve) => {
-            Browser.open({ url: params.url }).then(() => resolve());
+            Browser.open({ url: params.url }).then(() => {
+                console.log('Capacitor open Browser done');
+
+                resolve();
+            });
         });
 
 
