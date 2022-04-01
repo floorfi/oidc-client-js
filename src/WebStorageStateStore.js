@@ -14,16 +14,24 @@ export class WebStorageStateStore {
         Log.debug("WebStorageStateStore.set", key);
         console.log('Set Storage: ');
         console.log('Key: ' + key);
-        console.log(value);
+        console.log('Value: ' + value);
 
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
             console.log('LocalStorage');
-            return this._store.set({
-                key: key,
-                value: value
-            });
+            return new Promise((resolve) => {
+                this._store.set({
+                    key: key,
+                    value: value
+                }).then(() => {
+                    console.log('Capacitor set Storage done')
+                    console.log('Value in Storage: ' + window.localStorage.getItem(key));
+                    resolve();
+                })
+            })
+
+            return ;
         } else {
             console.log('SessionStorage');
             this._store.setItem(key, value);
@@ -44,6 +52,7 @@ export class WebStorageStateStore {
             return new Promise((resolve) => {
                 this._store.get({ key: key })
                     .then(storeEntry => {
+                        console.log('Value in Storage: ' + window.localStorage.getItem(key));
                         console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
                         resolve(storeEntry.value)
                     })
