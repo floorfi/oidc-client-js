@@ -69,6 +69,8 @@ export class WebStorageStateStore {
 
     remove(key) {
         Log.debug("WebStorageStateStore.remove", key);
+        console.log('Remove from Storage: ');
+        console.log('Key: ' + key);
 
         key = this._prefix + key;
 
