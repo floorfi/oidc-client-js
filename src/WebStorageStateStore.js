@@ -18,7 +18,6 @@ export class WebStorageStateStore {
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage - set');
             return new Promise((resolve) => {
                 this._store.set({
                     key: key,
@@ -30,7 +29,6 @@ export class WebStorageStateStore {
                 })
             })
         } else {
-            console.log('SessionStorage');
             this._store.setItem(key, value);
             return Promise.resolve();
         }
@@ -44,18 +42,14 @@ export class WebStorageStateStore {
         key = this._prefix + key;
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage - get');
-
             return new Promise((resolve) => {
                 this._store.get({ key: key })
                     .then(storeEntry => {
-                        console.log('Value in Storage: ' + window.localStorage.getItem('CapacitorStorage.' + key));
                         console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
                         resolve(storeEntry.value)
                     })
             })
         } else {
-            console.log('SessionStorage');
             let item = this._store.getItem(key);
             return Promise.resolve(item);
         }
@@ -66,10 +60,7 @@ export class WebStorageStateStore {
         console.log('Remove from Storage: ');
         console.log('Key: ' + key);
 
-
-
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage - remove');
             return new Promise((resolve) => {
                 this.get(key).then(value => {
                     console.log('LocalStorage - remove - get value: ' + value);
@@ -82,7 +73,6 @@ export class WebStorageStateStore {
                 });
             });
         } else {
-            console.log('SessionStorage');
             let item = this._store.getItem(key);
             this._store.removeItem(key);
             return Promise.resolve(item);
@@ -95,7 +85,6 @@ export class WebStorageStateStore {
         var keys = [];
 
         if(this._store == Global.localStorage) {
-            console.log('LocalStorage - getall');
             return new Promise((resolve) => {
                 this._store.keys()
                     .then(keys => {
@@ -109,7 +98,6 @@ export class WebStorageStateStore {
                     })
             });
         } else {
-            console.log('SessionStorage');
             for (let index = 0; index < this._store.length; index++) {
                 let key = this._store.key(index);
 
