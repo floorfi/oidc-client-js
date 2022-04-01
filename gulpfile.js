@@ -291,14 +291,14 @@ exports.default = gulp.series(
     build_lib_rsa_sourcemap,
     build_lib_rsa_min,
 
-    build_dist_sourcemap,
-    build_dist_min,
+    // build_dist_sourcemap,
+    // build_dist_min,
 
-    build_dist_slim_sourcemap,
-    build_dist_slim,
+    // build_dist_slim_sourcemap,
+    // build_dist_slim,
 
-    build_dist_slim_rsa_sourcemap,
-    build_dist_slim_rsa
+    // build_dist_slim_rsa_sourcemap,
+    // build_dist_slim_rsa
   ),
   copy_ts
 );

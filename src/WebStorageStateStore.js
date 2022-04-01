@@ -3,6 +3,8 @@
 
 import { Log } from './Log.js';
 import { Global } from './Global.js';
+import { Storage } from "@capacitor/storage";
+
 
 export class WebStorageStateStore {
     constructor({prefix = "oidc.", store = Global.localStorage} = {}) {
@@ -21,7 +23,7 @@ export class WebStorageStateStore {
         if(this._store == Global.localStorage) {
             console.log('LocalStorage');
             return new Promise((resolve) => {
-                this._store.set({
+                Storage.set({
                     key: key,
                     value: value
                 }).then(() => {
@@ -50,7 +52,7 @@ export class WebStorageStateStore {
         if(this._store == Global.localStorage) {
             console.log('LocalStorage');
             return new Promise((resolve) => {
-                this._store.get({ key: key })
+                Storage.get({ key: key })
                     .then(storeEntry => {
                         console.log('Value in Storage: ' + window.localStorage.getItem(key));
                         console.log('Capacitor Storage Get ' + key + ' - Output: ' + storeEntry.value)
